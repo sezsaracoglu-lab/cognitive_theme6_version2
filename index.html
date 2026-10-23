@@ -175,6 +175,15 @@ details.idans summary{cursor:pointer;font-weight:700;color:var(--dgold)}.model2 
 <section class="panel" id="p-fc"><h1>🃏 Flashcards</h1><p class="sub">Click a card to flip it. Filter by topic.</p><div class="chips" id="fchips"></div><div class="fctl"><button class="btn" id="fshuf">🔀 Shuffle</button><button class="btn ghost" id="freset">↺ Reset</button><span id="fcount"></span></div><div class="cards" id="cards"></div></section>
 <section class="panel" id="p-mq"><div class="scorebar"><span id="score">Score 0 / 0</span><button class="btn ghost" id="qrestart">↺ Restart</button></div><h1>✅ Exam-style MCQs</h1><p class="sub">Answering locks the question and shows feedback.</p><div id="quiz"></div><div id="final" class="final"></div></section>
 <section class="panel" id="p-vz"><style>
+#p-vz .vsubs{display:flex;flex-direction:column;gap:8px}
+#p-vz .vsub{background:#fcfaf5;border:1px solid var(--line);border-left:4px solid #c9a96e;border-radius:12px;padding:8px 12px}
+#p-vz .vsub .n{display:inline-block;font-size:.72rem;font-weight:800;color:#fff;background:#34466b;border-radius:6px;padding:1px 7px;margin-right:6px;vertical-align:middle}
+#p-vz .vsub h5{display:inline;font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:var(--navy);margin:0;vertical-align:middle}
+#p-vz .vsub p{margin:4px 0 0;font-size:.9rem;line-height:1.42}
+#p-vz .vdemo .vbtn.sel{background:var(--pgold);border-color:#a8854a}
+#p-vz .cards3{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin:10px 0}
+#p-vz .cards3>div{background:#fff;border-radius:14px;padding:11px 13px;font-size:.9rem;line-height:1.42;border:1px solid var(--line)}
+#p-vz .cards3>div b:first-child{display:block;color:var(--navy);margin-bottom:2px}
 /* ===== visual tab ===== */
 #p-vz{--vn:#34466b;--vg:#c9a96e;--vdg:#a8854a}
 #p-vz .vpage{max-width:1120px;margin:0 auto;padding:28px 24px 90px}
@@ -370,21 +379,26 @@ details.idans summary{cursor:pointer;font-weight:700;color:var(--dgold)}.model2 
    <text x="280" y="302" text-anchor="middle" class="t-t">what you believe now = what you believed before × how much better</text>
    <text x="280" y="320" text-anchor="middle" class="t-t">one hypothesis predicts the evidence than the other</text>
   </svg><figcaption>Figure A.1a. Two skills and one rule.</figcaption></figure>
-  <ul class="vpts">
-   <li><b class="e">⚖️</b><b>Judgement</b>: how likely, from incomplete information. <b>Decision</b>: choosing an option.</li>
-   <li><b class="e">🏥</b>"The operation was a success; unfortunately the patient died": judge decisions by the information available, not just outcomes.</li>
-   <li><b class="e">🎲</b>Rules: P(not) = 1 − P; P(A or B) = P(A) + P(B) for exclusive events; conditional probability = P(A given B).</li>
-   <li><b class="e">🚕</b><b>Taxi-cab problem</b>: 15% Blue, witness 80% accurate, says "Blue" → P(Blue) = 12/29 ≈ <b>41%</b>, not 80%.</li>
-  </ul>
+  <div class="vsubs">
+   <div class="vsub"><b class="n">A.1.1</b><h5>Two overlapping skills</h5>
+     <p>⚖️ <b>Judgement</b> = how likely something is, from <b>incomplete information</b> (yardstick: accuracy). <b>Decision making</b> = choosing one option, which adds choice and so risk. Judge a decision by the information available, not only by its outcome.</p></div>
+   <div class="vsub"><b class="n">A.1.2</b><h5>The rules of probability</h5>
+     <p>🎲 Lee is 1 of 10 candidates: P = 0.1; <b>not</b> getting it = 0.9; Lee <b>or</b> the roommate = 0.2. <b>Conditional probability</b> = P(A <b>given</b> B), calculated with <b>Bayes’ theorem</b> (Sternberg).</p></div>
+   <div class="vsub"><b class="n">A.1.3</b><h5>Bayes’ theorem in plain words</h5>
+     <p>🔄 <b>Bayesian inference</b>: <b>prior probabilities</b> + new evidence → <b>posterior probabilities</b> (90% sure of a lie → 60% after someone confirms the story). <b>posterior odds  =  prior odds  ×  likelihood ratio</b>.</p></div>
+   <div class="vsub"><b class="n">A.1.4</b><h5>Worked example: the taxi-cab problem</h5>
+     <p>🚕 Kahneman &amp; Tversky (1972): <b>85%</b> Green cabs, <b>15%</b> Blue; the witness says “Blue” and is wrong <b>20%</b> of the time. 12 true vs 17 false “Blue” reports → 12/29 ≈ <b>41%</b>, not 80%.</p></div>
+  </div>
  </div>
  <div class="vdemo"><span class="lbl">INTERACTIVE · BAYES WITH 100 DOTS</span><h4>🚕 Play with the taxi-cab problem</h4><p class="mini">Each dot is one accident. Change how common Blue cabs are and how accurate the witness is. <b style="color:#2b5ea7">Blue</b> = Blue cab correctly called Blue; <b style="color:#c0392b">red</b> = Green cab wrongly called Blue. The answer is blue dots ÷ all coloured dots.</p>
   <div class="poll"><span>Blue cabs in the city: <b id="sbBase">15</b>%</span><input type="range" id="sbBaseR" min="1" max="60" value="15" style="flex:1 1 200px"></div>
   <div class="poll"><span>Witness accuracy: <b id="sbAcc">80</b>%</span><input type="range" id="sbAccR" min="50" max="99" value="80" style="flex:1 1 200px"></div>
   <div class="icons" id="sbIcons"></div><div class="big" id="sbPost"></div><div class="vout" id="sbOut"></div></div>
  <div class="vana"><div class="ae">🔔</div><div><b>THINK OF IT LIKE…</b>A smoke alarm that's right 80% of the time in a house where fires are rare. Most times it goes off, it's burnt toast. A reliable signal about a rare event still produces mostly false alarms.</div></div>
- <div class="vtrap"><div class="x"><b>✗ THE MISTAKE</b>"The witness is 80% accurate, so the chance it was Blue is 80%."</div><div class="ok"><b>✓ CORRECT</b>Combine accuracy with the base rate: 12 true "Blue" reports vs 17 false ones → 41%.</div></div>
- <div class="vtrio"><div class="f"><b>💬 SAY IT TO A FRIEND</b>To guess well, combine how common something is with how strong the clue is. Rare things stay fairly rare even after a good clue.</div><div class="h"><b>🔑 MEMORY HOOK</b>Posterior = prior × evidence.</div><div class="t"><b>✎ EXAM TIP</b>Solve with counts: out of 100 accidents → 12 vs 17. Easier than the formula under stress.</div></div>
+ <div class="vtrap"><div class="x"><b>✗ THE MISTAKE</b>Concluding that a decision was bad because it turned out badly.</div><div class="ok"><b>✓ CORRECT</b>Decision quality depends on the information available when the decision was made. A good decision can have a poor outcome (Eysenck &amp; Keane): “The operation was a success. Unfortunately, the patient died.”</div></div>
+ <div class="vtrio"><div class="f"><b>💬 SAY IT TO A FRIEND</b>Judging is guessing how likely something is; deciding is picking what to do. To guess well, combine how common something is with how strong the new clue is. In the taxi problem the witness is pretty good, but Blue cabs are so rare that she’s wrong more often than right when she says “Blue”.</div><div class="h"><b>🔑 MEMORY HOOK</b>Posterior = prior × evidence. Rare stays fairly rare.</div><div class="t"><b>✎ EXAM TIP</b>Practise the taxi-cab sum both ways: with odds (.15 × .80 vs .85 × .20 = 12:17) and with counts (12 of 29). The counts version is easier under exam stress.</div></div>
  <div class="vwatch"><a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=Bayes+theorem+taxi+cab+problem+base+rate">▶ Find a video: Bayes and the taxi-cab problem</a></div>
+ <details class="vchk"><summary>✅ Quick check: What do the “prior odds” and the “likelihood ratio” each represent?</summary><p>Prior odds: how likely hypothesis A is compared with B <b>before</b> the new data (taxi: .15 / .85). Likelihood ratio: how likely the observed data would be if A were true compared with if B were true (witness says “Blue”: .80 / .20). Multiply them to get the posterior odds (12 : 17).</p></details>
  <details class="vchk"><summary>✅ Quick check: If 50% of cabs were Blue, what would P(Blue) be?</summary><p>80%. With equal priors (odds 1:1) the posterior is just the likelihood ratio 80:20. Try it with the slider.</p></details>
 </article>
 
@@ -401,20 +415,22 @@ details.idans summary{cursor:pointer;font-weight:700;color:var(--dgold)}.model2 
    <rect x="340" y="160" width="140" height="130" rx="8" fill="#f3f1ec"/><rect x="340" y="173" width="140" height="117" rx="8" fill="#c9a96e"/><text x="410" y="236" text-anchor="middle" fill="#fff" font-size="22" font-weight="700">.90</text>
    <text x="280" y="318" text-anchor="middle" class="t-r">Same judged probability "engineer" whatever the 70:30 split</text>
   </svg><figcaption>Figure A.2a. <span class="bg">real data</span> mean judged probability that Jack is an engineer.</figcaption></figure>
-  <ul class="vpts">
-   <li><b class="e">🧰</b><b>Heuristics</b>: strategies that ignore part of the information to decide quickly and frugally (Gigerenzer &amp; Gaissmaier, 2011). Usually accurate.</li>
-   <li><b class="e">🪞</b><b>Representativeness</b>: judging by similarity to a category or to the process (randomness).</li>
-   <li><b class="e">👶</b>Birth orders GBGBBG and BGBBBB are <b>equally</b> likely, (1/2)⁶; best estimate 72 for both.</li>
-   <li><b class="e">🧍</b><b>Law of small numbers</b> and <b>man-who arguments</b> ("I know a man who smoked and lived to 110").</li>
-   <li><b class="e">🎰</b><b>Gambler's fallacy</b> ("I'm due") and the <b>hot hand</b> (Gilovich et al., 1985): independent events have no memory.</li>
-  </ul>
+  <div class="vsubs">
+   <div class="vsub"><b class="n">A.2.1</b><h5>Base-rate neglect</h5>
+     <p>👔 The <b>base rate</b> = how common something is in the population. <b>Lawyer-engineer problem</b> (Kahneman &amp; Tversky, 1973): Jack judged <b>.90</b> engineer <b>regardless</b> of a 70:30 or 30:70 split. Doctors rely on base rates: chest pain at 10 vs at 60.</p></div>
+   <div class="vsub"><b class="n">A.2.2</b><h5>Heuristics: rules of thumb</h5>
+     <p>🧰 <b>Heuristics</b> ignore part of the information to decide quickly and frugally (Gigerenzer &amp; Gaissmaier, 2011). Matlin &amp; Farmer: they are <b>typically accurate</b>; errors come from over-relying on them.</p></div>
+   <div class="vsub"><b class="n">A.2.3</b><h5>The representativeness heuristic</h5>
+     <p>🪞 Judging by how <b>typical</b> something looks of a category or of the random <b>process</b>. <b>G B G B B G</b> and <b>B G B B B B</b> are equally likely ((1/2)⁶; 72 each). Symptoms: <b>the law of small numbers</b>, man-who arguments, <b>the gambler’s fallacy</b> and hot hand.</p></div>
+  </div>
  </div>
- <div class="vdemo"><span class="lbl">INTERACTIVE · DOES THE COIN REMEMBER?</span><h4>🪙 Gambler's fallacy simulator</h4><p class="mini">We flip a fair coin 100,000 times and look only at flips that came right after <b>5 tails in a row</b>. Is heads now "due"?</p>
+ <div class="vdemo"><span class="lbl">INTERACTIVE · DOES THE COIN REMEMBER?</span><h4>🪙 Gambler's fallacy simulator</h4><p class="mini">We flip a fair coin 100,000 times and look only at flips that came right after <b>5 tails in a row</b>. Is heads now "due"? <span class="bg">illustrative simulation</span></p><p class="mini">Related symptoms: <b>the law of small numbers</b> (Tversky &amp; Kahneman, 1971) and man-who arguments, “I know a man who … lived to 110” (Nisbett &amp; Ross, 1980). The opposite of the gambler’s fallacy is the <b>hot hand</b>: basketball records show no streaks (Gilovich, Vallone &amp; Tversky, 1985). Magicians and con artists exploit our poor sense of chance, for example with birthday coincidences in small groups (Krantz, 1992).</p>
   <button class="vbtn p" id="sgGo">🪙 Flip 100,000 times</button><div class="vout" id="sgOut"></div></div>
  <div class="vdemo"><span class="lbl">QUICK POLL</span><h4>👶 Which family of six is more likely?</h4><div id="sbirth"></div><div class="vout" id="sbirthOut"></div></div>
  <div class="vana"><div class="ae">🪞</div><div><b>THINK OF IT LIKE…</b>Judging a book by its cover. Jack "looks like" an engineer, so you forget that the pile you drew him from was 70% lawyers.</div></div>
  <div class="vtrap"><div class="x"><b>✗ THE MISTAKE</b>"GBGBBG is more likely because three of each is more common."</div><div class="ok"><b>✓ CORRECT</b>"Three of each" as a type is more common, but each specific order has the same probability, (1/2)⁶.</div></div>
- <div class="vtrio"><div class="f"><b>💬 SAY IT TO A FRIEND</b>We judge by resemblance: Jack sounds like an engineer, so he must be one, even if most people in the pile are lawyers.</div><div class="h"><b>🔑 MEMORY HOOK</b>Looks like it → must be it.</div><div class="t"><b>✎ EXAM TIP</b>Four symptoms: base-rate neglect, law of small numbers, man-who, gambler's fallacy / hot hand.</div></div>
+ <div class="vtrio"><div class="f"><b>💬 SAY IT TO A FRIEND</b>Representativeness means judging by resemblance: Jack sounds like an engineer, so he must be one, even if 70% of the people in the pile are lawyers. It also makes “random-looking” sequences seem more likely, makes one anecdote feel like proof, and makes gamblers think they’re “due”.</div><div class="h"><b>🔑 MEMORY HOOK</b>Looks like it → must be it (and forget how common it is).</div><div class="t"><b>✎ EXAM TIP</b>Learn the four “symptoms” of representativeness: base-rate neglect, the law of small numbers, man-who arguments, and the gambler’s fallacy / hot hand. Each one is a possible Canvas or exam question.</div></div>
+ <details class="vchk"><summary>✅ Quick check: How are the gambler’s fallacy and the hot hand opposite errors with the same root?</summary><p>The gambler’s fallacy expects a run to end (“I’m due”); the hot hand expects a run to continue. Both treat independent events as if they were linked: we expect sequences to look the way chance “should” look (representativeness), but a coin or a shot has no memory.</p></details>
  <div class="vwatch"><a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=representativeness+heuristic+base+rate+neglect">▶ Find a video: representativeness heuristic</a><a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=gambler%27s+fallacy+hot+hand+explained">▶ Find a video: gambler's fallacy and hot hand</a></div>
 </article>
 
@@ -422,7 +438,7 @@ details.idans summary{cursor:pointer;font-weight:700;color:var(--dgold)}.model2 
  <div class="vlec-h"><div class="vnum"><i>🏦</i>A.3</div><h2>The conjunction fallacy: when more detail feels more likely</h2></div>
  <div class="vq">❓ <b>This lecture answers:</b> Why do people rate "A and B" above "A", and do experts do it too?</div>
  <div class="vdemo" style="margin-top:6px"><span class="lbl">TRY IT FIRST</span><h4>🏦 Linda (Tversky &amp; Kahneman, 1983)</h4><p>"Linda is 31, single, outspoken and very bright. She majored in philosophy. As a student she was deeply concerned with discrimination and social justice, and took part in anti-nuclear demonstrations."</p><p class="mini">Which is more likely?</p>
-  <button class="vbtn" id="slA">(a) Linda is a bank teller</button><button class="vbtn" id="slB">(b) Linda is a bank teller and active in the feminist movement</button><div class="vout" id="slOut"></div></div>
+  <p class="mini">Replicated many times (Fisk, 2004; Kahneman &amp; Frederick, 2005).</p><button class="vbtn" id="slA">(a) Linda is a bank teller</button><button class="vbtn" id="slB">(b) Linda is a bank teller and active in the feminist movement</button><div class="vout" id="slOut"></div></div>
  <div class="vgrid">
   <figure class="vfig"><svg viewBox="0 0 560 300">
    <text x="280" y="24" text-anchor="middle" class="t-h">The conjunction rule</text>
@@ -432,18 +448,26 @@ details.idans summary{cursor:pointer;font-weight:700;color:var(--dgold)}.model2 
    <text x="265" y="145" text-anchor="middle" class="t-r">A and B</text><text x="265" y="163" text-anchor="middle" class="t-s">feminist tellers</text>
    <text x="280" y="270" text-anchor="middle" class="t-b">P(A and B) ≤ P(A) and ≤ P(B)</text>
    <text x="280" y="290" text-anchor="middle" class="t-s">the overlap can never be bigger than either circle</text>
-  </svg><figcaption>Figure A.3a. Detroit murders can't outnumber Michigan murders.</figcaption></figure>
-  <ul class="vpts">
-   <li><b class="e">🪞</b>Representativeness: "feminist" fits Linda, so the detail feels <b>more</b> plausible but is statistically <b>less</b> likely.</li>
-   <li><b class="e">🎓</b>Persists with clear wording (Sides et al., 2002); high-SAT students show it <b>more</b> (Stanovich, 2011).</li>
-   <li><b class="e">👟</b>Tentori et al. (2013): it's about <b>support</b>, not probability ("bank teller with black shoes" test).</li>
-   <li><b class="e">🩺</b><b>Double conjunction fallacy</b>: 49% of medical experts rated alcoholism + thalassemia above each alone (Crupi et al., 2018).</li>
-  </ul>
+  </svg><figcaption>Figure A.3a. Detroit murders can’t outnumber Michigan murders (Kahneman &amp; Frederick, 2005); “spilling hot coffee” can’t beat “spilling coffee” (Moldoveanu &amp; Langer, 2002).</figcaption></figure>
+  <div class="vsubs">
+   <div class="vsub"><b class="n">A.3.1</b><h5>Linda the bank teller</h5>
+     <p>🏦 “Teller <b>and</b> feminist” rated above “teller”: the <b>conjunction fallacy</b> (Tversky &amp; Kahneman, 1983), from representativeness (Swoyer, 2002). It persists with clear wording (Sides et al., 2002), and students with <b>high SAT scores</b> show it more (Stanovich, 2011).</p></div>
+   <div class="vsub"><b class="n">A.3.2</b><h5>A different explanation: support, not probability</h5>
+     <p>👟 Tentori et al. (2013): the description strongly <b>supports</b> “feminist”. “Teller and owns black shoes” is more probable but unsupported, and the results favoured the <b>hypothesis-support</b> explanation.</p></div>
+   <div class="vsub"><b class="n">A.3.3</b><h5>Experts are not immune</h5>
+     <p>🩺 Croskerry missed McKinley’s heart attack: he looked representative of healthy people. <b>Double conjunction fallacy</b>: 49% of medical experts (Crupi et al., 2018). Medical experts can fall for <b>both</b> kinds. Common medical biases: <b>anchoring</b>, <b>omission bias</b>, <b>overconfidence</b> (Saposnik et al., 2016).</p></div>
+  </div>
  </div>
- <figure class="vfig"><svg viewBox="0 0 900 230" id="sconjChart"></svg><figcaption>Figure A.3b. Sternberg's heart-attack questions <span class="bg">real data</span>: wording as frequencies cut the fallacy from 65% to 25%.</figcaption></figure>
+ <figure class="vfig"><svg viewBox="0 0 900 230" id="sconjChart"></svg><figcaption>Figure A.3b. Sternberg's heart-attack questions <span class="bg">real data</span>: wording as frequencies cut the fallacy from 65% to 25%: presentation changes reasoning (Gigerenzer &amp; Hoffrage, 1995).</figcaption></figure>
+ <div class="vdemo"><span class="lbl">PREDICT · TENTORI ET AL. (2013)</span><h4>👟 Probability or support?</h4>
+  <p class="mini">A new option: “Linda is a bank teller <b>and owns a pair of black shoes</b>.” Owning black shoes is more <b>probable</b> than being a feminist activist, but Linda’s description gives it no <b>support</b> at all. What does each account predict?</p>
+  <div class="cards2"><div style="background:#fbecea"><b>Probability account</b><br>“teller + black shoes” should be rated likelier than “teller + feminist”.</div><div style="background:#eaf6ee"><b>Support account</b><br>“teller + feminist” should be rated likelier, because the description is good evidence for it.</div></div>
+  <button class="vbtn p" data-out="stenOut" data-rev="The findings supported the hypothesis-support explanation. What drives the fallacy is how strongly the evidence supports the extra detail, not how probable it is. Crupi et al.’s (2018) experts fit this too: some clinical evidence fitted the combined diagnosis especially well.">Reveal the result</button><div class="vout" id="stenOut"></div></div>
  <div class="vana"><div class="ae">🕵️</div><div><b>THINK OF IT LIKE…</b>A detective story: "the butler did it with a knife in the library" sounds more convincing than "the butler did it", yet every extra detail is one more thing that has to be true.</div></div>
  <div class="vtrap"><div class="x"><b>✗ THE MISTAKE</b>"The error is believing Linda is a feminist."</div><div class="ok"><b>✓ CORRECT</b>That belief is reasonable. The error is ranking "teller <b>and</b> feminist" above "teller".</div></div>
- <div class="vtrio"><div class="f"><b>💬 SAY IT TO A FRIEND</b>Adding detail makes a story feel likelier but makes it less likely. Even smart students and doctors fall for it.</div><div class="h"><b>🔑 MEMORY HOOK</b>More detail, more believable, less probable.</div><div class="t"><b>✎ EXAM TIP</b>Single = above one part; double = above both parts (Crupi, 49%).</div></div>
+ <div class="vtrio"><div class="f"><b>💬 SAY IT TO A FRIEND</b>Adding detail to a story makes it feel more likely but actually makes it less likely: “bank teller who’s a feminist” can never beat plain “bank teller”. People still pick it, even smart students and doctors, because the detail fits the description so well.</div><div class="h"><b>🔑 MEMORY HOOK</b>More detail, more believable, less probable.</div><div class="t"><b>✎ EXAM TIP</b>Remember the frequency rescue: 65% fell for the heart-attack conjunction with percentages but only 25% with “how many of 1,000 men” (Sternberg). It links A.3 to A.5.</div></div>
+ <details class="vchk"><summary>✅ Quick check: Can the conjunction fallacy also come from availability?</summary><p>Yes. People estimate more seven-letter words ending in “-ing” than words with “n” in the sixth position, although the second set contains the first (Tversky &amp; Kahneman, 1983). The “-ing” words are easier to bring to mind, so the conjunction fallacy can arise from either heuristic.</p></details>
+ <details class="vchk"><summary>✅ Quick check: Single vs double conjunction fallacy?</summary><p>Single: “A and B” rated above <b>one</b> part (Linda). Double: “A and B” rated above <b>each</b> part separately, as 49% of medical experts did with alcoholism and thalassemia trait (Crupi et al., 2018). The double version is the stronger violation.</p></details>
  <div class="vwatch"><a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=Linda+problem+conjunction+fallacy+Kahneman">▶ Find a video: the Linda problem</a></div>
 </article>
 
@@ -453,22 +477,45 @@ details.idans summary{cursor:pointer;font-weight:700;color:var(--dgold)}.model2 
  <div class="vdemo" style="margin-top:6px"><span class="lbl">TRY IT · 20 SECONDS</span><h4>🔤 R first, or R third?</h4><p class="mini">Type as many words as you can that <b>start</b> with R, then as many with R as the <b>third</b> letter (10 seconds each).</p>
   <button class="vbtn p" id="srGo">▶ Start</button><div class="sent" id="srStage" style="margin-top:8px">Ready?</div><textarea id="srBox" rows="2" style="margin-top:8px" placeholder="type words separated by spaces"></textarea><div class="vout" id="srOut"></div></div>
  <div class="vgrid">
-  <figure class="vfig"><svg viewBox="0 0 560 320" id="schores"></svg><figcaption>Figure A.4a. Ross &amp; Sicoly (1979) <span class="bg">real data</span>: each partner claimed about 16 of 20 chores.</figcaption></figure>
-  <ul class="vpts">
-   <li><b class="e">💭</b><b>Availability</b>: frequency judged by ease of recall. Usually accurate, because availability tracks frequency.</li>
-   <li><b class="e">📰</b>Contaminants: <b>recency</b> (MacLeod &amp; Campbell, 1992) and <b>familiarity</b> / media (El Salvador ≈ Indonesia; Brown &amp; Siegler, 1992).</li>
-   <li><b class="e">😨</b>Pachur et al. (2012a): <b>own experience</b> predicted judged causes of death best; the <b>affect heuristic</b> (dread) too; media worst.</li>
-   <li><b class="e">🏙️</b><b>Recognition heuristic</b>: Milan &gt; Modena, availability that works.</li>
-   <li><b class="e">🩺</b>Dr Alter's "pneumonia" was aspirin toxicity; remedy: guided reflection, list alternatives (Lambe et al., 2016).</li>
-  </ul>
+  <figure class="vfig"><svg viewBox="0 0 560 320" id="schores"></svg><figcaption>Figure A.4a. Ross &amp; Sicoly (1979) <span class="bg">real data</span>: each partner claimed to do more of about 16 of the 20 chores, which would add up to far more than 100%.</figcaption></figure>
+  <div class="vsubs">
+   <div class="vsub"><b class="n">A.4.1</b><h5>Ease of recall as a clue to frequency</h5>
+     <p>💭 <b>Availability</b>: frequency judged by how easily examples come to mind (Tversky &amp; Kahneman, 1973): Illinois vs Idaho students. Usually accurate. Representativeness asks if an example is <b>similar</b> to a category; availability asks you to <b>recall examples</b>.</p></div>
+   <div class="vsub"><b class="n">A.4.2</b><h5>Classic demonstrations</h5>
+     <p>🔤 More words have R third than <b>begin</b> with R. Each spouse claimed <b>16 of the 20</b> chores (Ross &amp; Sicoly, 1979). Much-publicised causes of death, such as murder, are judged likelier (Lichtenstein et al., 1978).</p></div>
+   <div class="vsub"><b class="n">A.4.3</b><h5>Which availability? Experience, media or dread</h5>
+     <p>😨 Pachur et al. (2012a): <b>direct experience</b> predicted judged causes of death best, the <b>affect heuristic</b> (dread) also did, media worst. Availability can be <b>overridden</b>, but not under <b>cognitive load</b>: famous name chosen <b>80%</b> (Oppenheimer &amp; Monin, 2009).</p></div>
+   <div class="vsub"><b class="n">A.4.4</b><h5>What contaminates availability: recency and familiarity</h5>
+     <p>📰 <b>Recency</b> (MacLeod &amp; Campbell, 1992) and <b>familiarity</b>: El Salvador ≈ Indonesia, though Indonesia is 35× larger (Brown &amp; Siegler, 1992). Dr Alter’s “pneumonia” was aspirin toxicity (Groopman, 2007). Fix: <b>Type 2</b> thinking, guided reflection, <b>alternative diagnoses</b>.</p></div>
+   <div class="vsub"><b class="n">A.4.5</b><h5>The recognition heuristic: availability done right</h5>
+     <p>🏙️ Recognise Milan but not Modena? Pick Milan: the <b>recognition heuristic</b> gives the right answer (Goldstein &amp; Gigerenzer, 2002). A special case of availability that often works.</p></div>
+   <div class="vsub"><b class="n">A.4.6</b><h5>Illusory correlation</h5>
+     <p>🔗 Seeing a link without real evidence, a source of stereotypes (Reber, 2004; Risen et al., 2007). Use all four cells of a <b>2 × 2 table</b>: 6 of 60 vs 8 of 80 is 10% each, so no link.</p></div>
+  </div>
  </div>
- <figure class="vfig"><svg viewBox="0 0 900 260" id="spachur"></svg><figcaption>Figure A.4b. Pachur et al. (2012a): percentage of correct predictions of judged causes of death (values read from Eysenck &amp; Keane Fig. 13.2, approximate).</figcaption></figure>
- <div class="vdemo"><span class="lbl">INTERACTIVE · ILLUSORY CORRELATION</span><h4>🕯️ Does burning a candle help?</h4><p class="mini">Fill in all four cells (imagine 40 hopes). A link exists only if a good outcome is more frequent <b>with</b> a candle than <b>without</b>. Most people look only at cell 1.</p>
+ <div class="vdemo"><span class="lbl">QUIZ · TELL THE HEURISTICS APART</span><h4>🧭 Similar, recall or start point?</h4>
+  <div class="cards3"><div><b>🪞 Representativeness</b>You are given an example: is it <b>similar</b> to a category? (Linda, Jack)</div><div><b>💭 Availability</b>You are given a category: how easily can you <b>recall examples</b>? (R-words, chores)</div><div><b>⚓ Anchoring</b>Where did I start, and did I adjust enough? (8 × 7 × 6 … × 1)</div></div>
+  <p class="mini">Which heuristic? Tap a case.</p>
+  <button class="vbtn" data-out="sheurOut" data-rev="Availability: you are given a category (students from a state) and have to recall examples. Dozens of Illinois names come to mind, one Idaho name, so you answer Illinois.">🎓 More students from Illinois or Idaho?</button>
+  <button class="vbtn" data-out="sheurOut" data-rev="Representativeness: you are given one example (Jack) and judge whether he is similar to a typical engineer. The base rate never enters the calculation.">👔 Is Jack an engineer?</button>
+  <button class="vbtn" data-out="sheurOut" data-rev="Anchoring and adjustment: the first numbers (8 × 7 …) give a high starting point, and everyone adjusts too little (A.5).">⚓ Estimating 8 × 7 × 6 × 5 × 4 × 3 × 2 × 1</button>
+  <div class="vout" id="sheurOut"></div></div>
+ <figure class="vfig"><svg viewBox="0 0 900 260" id="spachur"></svg><figcaption>Figure A.4b. Pachur et al. (2012a) compared availability from <b>direct personal experience</b>, availability from <b>total experience</b> (media coverage plus personal experience) and the affect heuristic (dread): percentage of correct predictions of judged causes of death (approximate values).</figcaption></figure>
+ <div class="vdemo"><span class="lbl">PREDICT · OPPENHEIMER (2004)</span><h4>🧠 Can availability be switched off?</h4>
+  <p class="mini">Which of two surnames is more common, a famous one or a non-famous one? Availability should favour the famous name.</p>
+  <button class="vbtn" data-out="soppOut" data-rev="Normal conditions: participants mostly chose the NON-famous name. They deliberately discounted fame, so availability was overridden (Oppenheimer, 2004).">🙂 Normal conditions</button>
+  <button class="vbtn" data-out="soppOut" data-rev="Under cognitive load, which reduces deliberate thought, they wrongly chose the famous name 80% of the time (Oppenheimer &amp; Monin, 2009). The override needs effort.">🤯 Under cognitive load</button>
+  <div class="vout" id="soppOut"></div>
+  <p class="mini">Affect also colours judgements: a test described as possibly harmful was judged less beneficial (Scherer et al., 2018), and repeated false statements (“a date is a dried plum”) felt truer even to people who <b>knew</b> the answer (Fazio et al., 2015).</p></div>
+ <div class="vdemo"><span class="lbl">INTERACTIVE · ILLUSORY CORRELATION</span><h4>🕯️ Does burning a candle help?</h4><p class="mini">Fill in all four cells (imagine 40 hopes). A link exists only if a good outcome is more frequent <b>with</b> a candle than <b>without</b>. Most people look only at cell 1. <span class="bg">illustrative</span> (Canvas Question 5)</p><p class="mini">Matlin &amp; Farmer’s example: 6 of 60 (10%) vs 8 of 80 (also 10%), so no relationship, yet people attend to the one cell of 6. Chapman &amp; Chapman (1967, 1969): clinicians “saw” paranoia linked to drawing large eyes because they expected it.</p>
   <div class="grid2x2"><div></div><div class="h">Good outcome</div><div class="h">Bad outcome</div><div class="h">🕯️ Candle</div><div>① <input type="number" id="sc1" value="12"></div><div>② <input type="number" id="sc2" value="8"></div><div class="h">No candle</div><div>③ <input type="number" id="sc3" value="12"></div><div>④ <input type="number" id="sc4" value="8"></div></div>
   <div class="vout" id="scOut"></div></div>
  <div class="vana"><div class="ae">🎣</div><div><b>THINK OF IT LIKE…</b>Fishing in your memory: whatever bites first seems to be what the lake is full of. Recent, famous and personal fish bite fastest.</div></div>
  <div class="vtrap"><div class="x"><b>✗ THE MISTAKE</b>"Many cases where both happened prove a link."</div><div class="ok"><b>✓ CORRECT</b>Compare cell 1 ÷ (1 + 2) with cell 3 ÷ (3 + 4). One cell is never a correlation.</div></div>
- <div class="vtrio"><div class="f"><b>💬 SAY IT TO A FRIEND</b>If lots of examples come to mind, it feels common, which is why both partners think they do most of the chores.</div><div class="h"><b>🔑 MEMORY HOOK</b>Easy to recall → seems common.</div><div class="t"><b>✎ EXAM TIP</b>Name the contaminant: recent, familiar, vivid, dreaded or self-performed.</div></div>
+ <div class="vtrio"><div class="f"><b>💬 SAY IT TO A FRIEND</b>Availability means “if I can think of lots of examples, it must be common”. Usually that works, but recent news, media coverage and your own experiences skew it, which is why both partners think they do most of the chores. It also makes us see links that aren’t there, because we only remember the cases that fit.</div><div class="h"><b>🔑 MEMORY HOOK</b>Easy to recall → seems common. One cell isn’t a correlation.</div><div class="t"><b>✎ EXAM TIP</b>For any “why do people overestimate X?” question, ask: is X recent, familiar, vivid, dreaded, or self-performed? Then name the availability heuristic and the specific contaminant.</div></div>
+ <details class="vchk"><summary>✅ Quick check: Why can each spouse sincerely claim to do most of the chores?</summary><p>Your own chores are far more available: you did and experienced them, while many of your partner’s happen when you are not there. Each partner’s own contributions come to mind more easily, so each overestimates their share (Ross &amp; Sicoly, 1979).</p></details>
+ <details class="vchk"><summary>✅ Quick check: Why did Oppenheimer and Monin (2009) need the cognitive-load condition?</summary><p>Normally people deliberately discount fame and pick the non-famous name. Load removes that deliberate thought, revealing the raw availability effect: the famous name was chosen 80% of the time.</p></details>
+ <details class="vchk"><summary>✅ Quick check: How can you counteract an availability effect?</summary><p>Switch from fast, intuitive <b>Type 1</b> processing to slow, critical <b>Type 2</b> processing (Kahneman, 2011): “He underestimates the risks of indoor pollution because there are few media stories on them. That’s an availability effect. He should look at the statistics.” Doctors: list alternatives and rule out the worst case (Lambe et al., 2016; Croskerry, 2018).</p></details>
  <div class="vwatch"><a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=availability+heuristic+explained">▶ Find a video: availability heuristic</a><a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=illusory+correlation+psychology">▶ Find a video: illusory correlation</a></div>
 </article>
 
@@ -478,21 +525,63 @@ details.idans summary{cursor:pointer;font-weight:700;color:var(--dgold)}.model2 
  <div class="vdemo" style="margin-top:6px"><span class="lbl">TRY IT · 5 SECONDS</span><h4>⚓ Estimate the product</h4><p class="mini">You get one of two versions at random. You have 5 seconds: no calculator!</p>
   <button class="vbtn p" id="saGo">▶ Show the sum</button><div class="sent" id="saStage" style="margin-top:8px">…</div><input type="number" id="saIn" placeholder="your estimate" style="margin-top:8px"><button class="vbtn" id="saChk">Check</button><div class="vout" id="saOut"></div></div>
  <figure class="vfig"><svg viewBox="0 0 900 260" id="sanchor"></svg><figcaption>Figure A.5a. <span class="bg">real data</span> Tversky &amp; Kahneman's median estimates and Englich &amp; Mussweiler's (2001) judges.</figcaption></figure>
- <div class="vdemo"><span class="lbl">CALIBRATION TEST · MATLIN'S DEMONSTRATION 12.6</span><h4>🎯 Give a 90% range for each</h4><p class="mini">Type a low and a high number so you are 90% sure the answer is inside. Well calibrated = about 4–5 hits out of 5. Most people's ranges are too narrow.</p>
+ <div class="vdemo"><span class="lbl">ANCHORS IN REAL LIFE · A.5.1</span><h4>⚖️ Why does the anchor stick?</h4>
+  <figure class="vfig" style="margin:6px 0"><svg viewBox="0 0 560 170" role="img" aria-label="Judges anchored by a novice's demand">
+   <text x="280" y="22" text-anchor="middle" class="t-b">Judges (average 15 years of experience), Englich &amp; Mussweiler (2001)</text>
+   <text x="20" y="62" class="t-t">Novice demands 12 months</text><rect x="210" y="48" width="110" height="22" rx="6" fill="#e9d9b4"/><text x="326" y="64" class="t-g">→ judges give 28</text><rect x="210" y="48" width="257" height="22" rx="6" fill="none" stroke="#a8854a" stroke-dasharray="4 3"/>
+   <text x="20" y="112" class="t-t">Novice demands 34 months</text><rect x="210" y="98" width="312" height="22" rx="6" fill="#34466b"/><rect x="210" y="98" width="330" height="22" rx="6" fill="none" stroke="#a8854a" stroke-dasharray="4 3"/><text x="516" y="114" text-anchor="end" fill="#fff" font-size="12" font-weight="700">→ judges give 36</text>
+   <text x="280" y="154" text-anchor="middle" class="t-s">The “prosecutor” was a computer science student, yet his demand moved the sentence.</text>
+  </svg></figure>
+  <p class="mini">Even arbitrary or impossible anchors work (living to 140; a roulette wheel and the number of African countries in the UN: Fiedler &amp; von Sydow, 2015), for experts as well as novices (Mussweiler et al., 2004). Everyday version: “meet at the library in 15 minutes?” You adjust to 20 and still forget your coat, a phone call and a shoelace.</p>
+  <div class="poll"><span>Which anchor makes people adjust their estimate of a TV’s production cost <b>more</b>?</span><button class="vbtn" data-out="sjanOut" data-rev="$3,000. Rounded anchors produce bigger adjustments than precise ones (Janiszewski &amp; Uy, 2008). Anchors also affect art auction prices and economic forecasts.">$3,000</button><button class="vbtn" data-out="sjanOut" data-rev="Not quite: the precise $2,991 holds people closer. Rounded anchors such as $3,000 produce bigger adjustments (Janiszewski &amp; Uy, 2008).">$2,991</button></div>
+  <div class="vout" id="sjanOut"></div><p class="mini">Source: Janiszewski &amp; Uy (2008), in Sternberg.</p>
+  <div class="cards2"><div style="background:#f6eedd"><b>Likely mechanism</b><br>The anchor <b>restricts the memory search</b> to information close to it (Kahneman, 2011; Pohl et al., 2003).</div><div style="background:#e3ecf7"><b>Simpler rival</b><br>The anchor just <b>priming</b> similar values: Eysenck &amp; Keane find little evidence for an incomplete-adjustment process.</div></div></div>
+ <div class="vdemo"><span class="lbl">CALIBRATION TEST · A.5.2</span><h4>🎯 Give a 90% range for each</h4><p class="mini">Type a low and a high number so you are 90% sure the answer is inside. Well calibrated = about 4–5 hits out of 5. Most people’s ranges are too narrow. <span class="bg">illustrative items</span></p><p class="mini">The Word example: best guess for the area of Germany 500,000 km² → range 400,000–600,000, too narrow if the anchor is badly off. Matlin’s advice: question your first estimate and ask whether this situation needs a new anchor or a large adjustment.</p>
   <div id="sci"></div><button class="vbtn p" id="sciGo">Score me</button><div class="vout" id="sciOut"></div></div>
+ <div class="vdemo"><span class="lbl">DIAGRAM · MATLIN &amp; FARMER</span><h4>🔁 One habit, three errors</h4>
+  <figure class="vfig" style="margin:6px 0"><svg viewBox="0 0 560 190" role="img" aria-label="Three ways we confirm current beliefs">
+   <rect x="150" y="12" width="260" height="50" rx="14" fill="#34466b"/><text x="280" y="34" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Confirm current beliefs</text><text x="280" y="52" text-anchor="middle" fill="#f3dfb4" font-size="12">rather than question them (top-down)</text>
+   <path d="M210 62 L100 100" stroke="#a8854a" stroke-width="2"/><path d="M280 62 L280 100" stroke="#a8854a" stroke-width="2"/><path d="M350 62 L460 100" stroke="#a8854a" stroke-width="2"/>
+   <rect x="10" y="100" width="175" height="78" rx="12" fill="#f6eedd"/><text x="97" y="124" text-anchor="middle" class="t-b">Belief-bias effect</text><text x="97" y="146" text-anchor="middle" class="t-s">the first of Matlin &amp;</text><text x="97" y="162" text-anchor="middle" class="t-s">Farmer’s three cases</text>
+   <rect x="193" y="100" width="175" height="78" rx="12" fill="#e3ecf7"/><text x="280" y="124" text-anchor="middle" class="t-b">Confirmation bias</text><text x="280" y="146" text-anchor="middle" class="t-s">prefer to confirm a</text><text x="280" y="162" text-anchor="middle" class="t-s">hypothesis, not reject it</text>
+   <rect x="376" y="100" width="175" height="78" rx="12" fill="#fbecea"/><text x="463" y="124" text-anchor="middle" class="t-b">Illusory correlation</text><text x="463" y="146" text-anchor="middle" class="t-s">rely on one</text><text x="463" y="162" text-anchor="middle" class="t-s">well-known cell</text>
+  </svg><figcaption>Matlin &amp; Farmer: anchoring belongs to a general tendency to confirm current beliefs rather than question them, seen in these three.</figcaption></figure></div>
  <div class="vgrid">
   <figure class="vfig"><svg viewBox="0 0 560 300" id="skt"></svg><figcaption>Figure A.5b. Base rates are used when the cause is clear (Krynski &amp; Tenenbaum, 2007) or with natural frequencies (Gigerenzer &amp; Hoffrage, 1995). <span class="bg">real data</span></figcaption></figure>
-  <ul class="vpts">
-   <li><b class="e">⚓</b><b>Anchoring and adjustment</b>: start from an anchor, adjust too little. Even arbitrary anchors work (roulette wheel; Fiedler &amp; von Sydow, 2015).</li>
-   <li><b class="e">📏</b>98% intervals contain the answer only ~60% of the time (Block &amp; Harper, 1991).</li>
-   <li><b class="e">🎨</b>Faded-paint taxi version: base-rate neglect 43% → 8%; correct 8% → 46%.</li>
-   <li><b class="e">🎯</b>Motivation: people use the 1/10 error rate to dismiss bad news (Ditto et al., 1998).</li>
-   <li><b class="e">🔍</b>Critique: vague labels, weak theory, biased samples (skin cancer media), emotion ignored, artificial lab tasks.</li>
-  </ul>
+  <div class="vsubs">
+   <div class="vsub"><b class="n">A.5.1</b><h5>Anchoring and adjustment</h5>
+     <p>⚓ <b>Anchoring-and-adjustment heuristic</b>: start from an anchor, but <b>adjustments are too small</b>. 8 × 7 × 6 × 5 × 4 × 3 × 2 × 1 → <b>2,250</b>; 1 × 2 × 3 × 4 × 5 × 6 × 7 × 8 → <b>512</b>; true answer <b>40,320</b> (Tversky &amp; Kahneman, 1974).</p></div>
+   <div class="vsub"><b class="n">A.5.2</b><h5>Confidence intervals that are too narrow</h5>
+     <p>📏 A <b>confidence interval</b> should hold the answer as often as promised, yet 98% intervals hit only ~60% (Block &amp; Harper, 1991): we anchor on a best guess and adjust too little. Students’ “90%” ≈ 50% sure (Teigen &amp; Jørgensen, 2005).</p></div>
+   <div class="vsub"><b class="n">A.5.3</b><h5>When people do use base rates</h5>
+     <p>🔍 Often they do: <b>.84</b> vs <b>.53</b> with 997 vs 3 engineers (Bialek, 2017). <b>Causal knowledge</b> helps (Krynski &amp; Tenenbaum, 2007: faded paint cut neglect from 43% to 8%), and so does motivation (Ditto et al., 1998).</p></div>
+   <div class="vsub"><b class="n">A.5.4</b><h5>The natural frequency hypothesis</h5>
+     <p>🔢 We meet the world by <b>natural sampling</b>, so counts beat percentages: 16% vs 46% correct (Gigerenzer &amp; Hoffrage, 1995); a clear advantage overall (McDowell &amp; Jacobs, 2017); medical students 45% vs 7% (Hoffrage et al., 2015).</p></div>
+   <div class="vsub"><b class="n">A.5.5</b><h5>Evaluating the heuristics-and-biases approach</h5>
+     <p>⚖️ Hugely influential, and saving effort is real. But (Fiedler &amp; von Sydow, 2015): vague labels, little theoretical progress, biased samples rather than biased processing, emotion ignored, artificial lab tasks.</p></div>
+  </div>
  </div>
+ <div class="vdemo"><span class="lbl">SIDE BY SIDE · A.5.3</span><h4>🛟 Three rescues of the base rate</h4>
+  <div class="cards3">
+   <div><b>📊 People often use them</b>Bialek (2017), 1,000 descriptions: “engineer” judged <b>.84</b> when 997 were engineers and <b>.53</b> when only 3 were. Many even used base rates that were <b>irrelevant</b>.</div>
+   <div><b>🔧 Causal knowledge</b>Mammogram: in the <b>false-positive</b> version (2% have cancer; 6% of healthy women test positive) base rates were neglected. The <b>benign-cyst</b> version explains the 6%, and base rates were used. Taxi with faded paint (knowing <b>why</b> the witness errs): neglect 43% → 8%, correct 8% → 46%. People use base rates when they see the <b>causal structure</b>.</div>
+   <div><b>🎯 Motivation</b>Ditto et al. (1998): when blue paper meant illness, people used the 1/10 error rate to call the test inaccurate; when blue meant healthy, the test looked fine. We are <b>motivated</b> to use base rates when it suits us, feeding <b>myside bias</b>.</div>
+  </div></div>
+ <div class="vdemo"><span class="lbl">CRITIQUE · A.5.5</span><h4>🔍 Five criticisms, five examples</h4>
+  <div class="cards3">
+   <div><b>1 · Heuristics are vaguely defined</b>One-word labels are “theory surrogates” that place no testable constraints on the process.</div>
+   <div><b>2 · Theory has made little progress</b>Is anchoring incomplete adjustment or simple priming? When is each heuristic used?</div>
+   <div><b>3 · Errors may come from biased samples, not biased processing</b>Skin cancer judged a commoner cause of death than mouth and throat cancer, mainly because of media coverage (Hertwig et al., 2005).</div>
+   <div><b>4 · Emotion and motivation were rarely studied</b>Formaldehyde risk judged higher in a sad mood (Lench &amp; Darbor, 2014).</div>
+   <div><b>5 · Laboratory artificiality</b>Base-rate neglect may partly reflect artificial tasks (McDowell &amp; Jacobs, 2017), which leads to the natural-frequency hypothesis.</div>
+  </div>
+  <p class="mini">Strengths to set against them: Kahneman and Tversky founded the field, their ideas spread to economics and philosophy, and people really do minimise effort with heuristics.</p></div>
  <div class="vana"><div class="ae">🚢</div><div><b>THINK OF IT LIKE…</b>A ship's anchor: you can drift a little, but the chain keeps you close to where you dropped it, even if you dropped it in the wrong place.</div></div>
  <div class="vtrap"><div class="x"><b>✗ THE MISTAKE</b>"Natural frequencies make people perfect Bayesians."</div><div class="ok"><b>✓ CORRECT</b>They help a lot (16% → 46% correct) but most people still err. "Clear advantage", not "solves it".</div></div>
- <div class="vtrio"><div class="f"><b>💬 SAY IT TO A FRIEND</b>You start from a number and don't move far enough. And people aren't blind to base rates: give them a cause or plain counts and they do much better.</div><div class="h"><b>🔑 MEMORY HOOK</b>Start somewhere, stop too soon.</div><div class="t"><b>✎ EXAM TIP</b>Evaluate: two strengths + two or three Fiedler &amp; von Sydow criticisms.</div></div>
+ <div class="vtrio"><div class="f"><b>💬 SAY IT TO A FRIEND</b>Anchoring means you start from a number and don’t move far enough from it, which is why 8×7×6… gets a bigger guess than 1×2×3…, and why our “98% sure” ranges are right only 60% of the time. And people aren’t completely blind to base rates: give them a cause or plain counts and they do much better.</div><div class="h"><b>🔑 MEMORY HOOK</b>Start somewhere, stop too soon. Counts beat percentages.</div><div class="t"><b>✎ EXAM TIP</b>When asked to “evaluate” the heuristics approach, give two strengths (huge influence; effort-saving is real) and two or three of Fiedler and von Sydow’s criticisms (vague labels, weak theory, environmental samples, emotion ignored).</div></div>
+ <details class="vchk"><summary>✅ Quick check: How does anchoring produce overly narrow confidence intervals?</summary><p>We make a best guess (the anchor) and adjust up and down from it too little (Tversky &amp; Kahneman, 1974). If the anchor is badly off, the narrow range misses the answer: 98% intervals contain it only about 60% of the time.</p></details>
+ <details class="vchk"><summary>✅ Quick check: Rewrite Canvas Question 9 (1% disease, 95% sensitivity, 90% specificity) in natural frequencies.</summary><p>Of 10,000 people, 100 are ill and 95 test positive; 9,900 are healthy and 990 test positive. So only 95 of 1,085 positives are ill ≈ 9%. In counts the base rate is impossible to ignore: the false positives (990) swamp the true ones (95).</p></details>
+ <details class="vchk"><summary>✅ Quick check: What two problems do Eysenck and Keane see in the natural frequency hypothesis?</summary><p>(1) The frequencies we meet are only a sample and can differ from the population (students meet unusual proportions of highly intelligent people). (2) Word problems with frequency information are not real natural sampling: they bypass its complexities.</p></details>
  <div class="vwatch"><a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=anchoring+and+adjustment+heuristic+experiment">▶ Find a video: anchoring and adjustment</a><a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=natural+frequencies+Gigerenzer+mammogram">▶ Find a video: natural frequencies</a></div>
 </article>
 
@@ -508,22 +597,24 @@ details.idans summary{cursor:pointer;font-weight:700;color:var(--dgold)}.model2 
    <rect x="290" y="44" width="250" height="160" rx="16" fill="#fbecea"/><text x="415" y="72" text-anchor="middle" font-size="30">🎲</text><text x="415" y="100" text-anchor="middle" class="t-b">Roll a 4 → $50</text><text x="415" y="124" text-anchor="middle" class="t-t">⅙ × $50 ≈ $8</text><text x="415" y="156" text-anchor="middle" class="t-s">$10 more, far less likely</text>
    <rect x="20" y="222" width="520" height="84" rx="14" fill="#f6eedd"/><text x="280" y="248" text-anchor="middle" class="t-b">INVARIANCE: the same choice, presented differently,</text><text x="280" y="268" text-anchor="middle" class="t-b">should get the same answer</text><text x="280" y="292" text-anchor="middle" class="t-s">normative = how we SHOULD choose · descriptive = how we DO choose</text>
   </svg><figcaption>Figure C.1a. Robinson-Riegler's example of expected utility.</figcaption></figure>
-  <ul class="vpts">
-   <li><b class="e">📐</b><b>Expected utility</b>: weigh the "good" of each outcome by its probability; choose the best combination. Normative.</li>
-   <li><b class="e">🔄</b><b>Preference reversals</b> (Lichtenstein &amp; Slovic, 1971, 1973): choose the high-probability gamble, price the high-payoff one higher; even in a Las Vegas casino.</li>
-   <li><b class="e">⏱️</b><b>Bounded rationality</b> (Simon, 1957): we <b>satisfice</b>, taking the first good-enough option.</li>
-   <li><b class="e">✂️</b><b>Elimination by aspects</b> (Tversky, 1972): drop options one attribute at a time.</li>
-  </ul>
+  <div class="vsubs">
+   <div class="vsub"><b class="n">C.1.1</b><h5>Expected utility theory</h5>
+     <p>🪙 <b>Expected utility theory</b>: weigh each outcome’s utility (its “good”; Baron, 1999) by its probability. A coin for $40 beats a die for $50. <b>Normative</b> = how we should choose, a <b>baseline</b>; <b>descriptive</b> = how we <b>actually</b> choose.</p></div>
+   <div class="vsub"><b class="n">C.1.2</b><h5>Invariance and preference reversals</h5>
+     <p>🔄 <b>Invariance</b>: presentation shouldn’t change a choice. Lichtenstein &amp; Slovic (1971, 1973): people <b>play</b> the high-probability gamble but say the high-<b>amount</b> one is <b>worth</b> more, a <b>preference reversal</b>, even in a Las Vegas casino.</p></div>
+   <div class="vsub"><b class="n">C.1.3</b><h5>Bounded rationality: satisficing and elimination by aspects</h5>
+     <p>⏱️ <b>Bounded rationality</b> (Simon, 1957): we <b>satisfice</b>, more so with limited working memory (Chen &amp; Sun, 2003) and in industry (Chamodrakas et al., 2010). <b>Elimination by aspects</b> (Tversky, 1972), then a careful final choice (Payne, 1976).</p></div>
+  </div>
  </div>
- <div class="vdemo"><span class="lbl">INTERACTIVE · PREFERENCE REVERSAL</span><h4>🎰 Choose, then price</h4><p class="mini">Gamble P: 99% chance to win $4, 1% to lose $1. Gamble $: 33% chance to win $16, 67% to lose $2 (from Robinson-Riegler Table 11.9).</p>
+ <div class="vdemo"><span class="lbl">INTERACTIVE · PREFERENCE REVERSAL</span><h4>🎰 Choose, then price</h4><p class="mini">Lichtenstein &amp; Slovic’s example pair. Gamble P: 80% chance to win $4.00, 20% chance to lose $0.50. Gamble $: 10% chance to win $40.00, 90% chance to lose $1.00. Choose one to <b>play</b>, then say what each is <b>worth</b> (your selling price).</p>
   <div class="poll"><span>Which would you rather play?</span><button class="vbtn" data-g="P">Gamble P</button><button class="vbtn" data-g="$">Gamble $</button></div>
   <div class="poll"><span>Selling price for P ($)</span><input type="number" id="spP" value="3"></div>
   <div class="poll"><span>Selling price for $ ($)</span><input type="number" id="sp$" value="4"></div>
   <button class="vbtn p" id="sprGo">Check my consistency</button><div class="vout" id="sprOut"></div></div>
- <div class="vdemo"><span class="lbl">INTERACTIVE · ELIMINATION BY ASPECTS</span><h4>🏫 Pick a college, one aspect at a time</h4><div id="seba"></div><div class="vout" id="sebaOut"></div></div>
+ <div class="vdemo"><span class="lbl">INTERACTIVE · ELIMINATION BY ASPECTS</span><h4>🏫 Pick a college, one aspect at a time</h4><p class="mini">Sternberg’s aspects (cost under $20,000 a year, then West Coast); the colleges are <span class="bg">illustrative</span>.</p><div id="seba"></div><div class="vout" id="sebaOut"></div></div>
  <div class="vana"><div class="ae">🍬</div><div><b>THINK OF IT LIKE…</b>Buying gum before a train: you grab the first acceptable pack (satisficing). For a medical diagnosis you'd want to weigh everything (expected utility).</div></div>
- <div class="vtrap"><div class="x"><b>✗ THE MISTAKE</b>"Expected utility is wrong because people violate it."</div><div class="ok"><b>✓ CORRECT</b>It's a good <b>normative</b> yardstick but a poor <b>descriptive</b> model, so prospect theory was developed.</div></div>
- <div class="vtrio"><div class="f"><b>💬 SAY IT TO A FRIEND</b>The rational rule: weigh how good by how likely, and don't let wording change your mind. People break the second part easily.</div><div class="h"><b>🔑 MEMORY HOOK</b>Expected utility = should. Invariance = same choice, same answer.</div><div class="t"><b>✎ EXAM TIP</b>Preference reversals and framing both violate invariance.</div></div>
+ <div class="vtrap"><div class="x"><b>✗ THE MISTAKE</b>"Expected utility is wrong because people violate it."</div><div class="ok"><b>✓ CORRECT</b>Expected utility is a <b>normative</b> model (how a rational agent should choose) and remains a useful yardstick. Violations show it is a poor <b>descriptive</b> model: it assumes too much information, weighing and foresight, which is why prospect theory was developed.</div></div>
+ <div class="vtrio"><div class="f"><b>💬 SAY IT TO A FRIEND</b>The textbook “rational” rule says: weigh how good each outcome is by how likely it is, and don’t let the wording change your mind. People break the second part easily, for example picking one gamble but saying the other is worth more. In real life we also settle for “good enough” instead of the best.</div><div class="h"><b>🔑 MEMORY HOOK</b>Expected utility = should. Invariance = same choice, same answer.</div><div class="t"><b>✎ EXAM TIP</b>Always pair a violation with the principle it violates: preference reversals and framing both violate <b>invariance</b>.</div></div>
  <div class="vwatch"><a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=expected+utility+theory+explained+simply">▶ Find a video: expected utility</a><a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=satisficing+Herbert+Simon+bounded+rationality">▶ Find a video: satisficing</a></div>
 </article>
 
@@ -540,17 +631,23 @@ details.idans summary{cursor:pointer;font-weight:700;color:var(--dgold)}.model2 
    <rect x="20" y="44" width="250" height="170" rx="14" fill="#f6eedd"/><text x="145" y="70" text-anchor="middle" class="t-b">① WORDING (Demo 12.8)</text><text x="145" y="100" text-anchor="middle" class="t-t">"200 saved" vs "400 die"</text><text x="145" y="124" text-anchor="middle" class="t-t">same options, new</text><text x="145" y="142" text-anchor="middle" class="t-t">reference point</text><text x="145" y="176" text-anchor="middle" class="t-g">gains → safe · losses → gamble</text>
    <rect x="290" y="44" width="250" height="170" rx="14" fill="#e3ecf7"/><text x="415" y="70" text-anchor="middle" class="t-b">② BACKGROUND (Demo 12.7)</text><text x="415" y="100" text-anchor="middle" class="t-t">lost €20 ticket vs</text><text x="415" y="118" text-anchor="middle" class="t-t">lost €20 note</text><text x="415" y="142" text-anchor="middle" class="t-t">same question, new context</text><text x="415" y="176" text-anchor="middle" class="t-g">mental accounts</text>
   </svg></figure>
-  <ul class="vpts">
-   <li><b class="e">📍</b><b>Reference point</b>: outcomes valued as gains or losses from what you have now (Kahneman &amp; Tversky, 1979).</li>
-   <li><b class="e">💔</b><b>Loss aversion</b>: losing $50 hurts more than gaining $50 pleases.</li>
-   <li><b class="e">🛡️</b>Gains → <b>risk averse</b>; losses → <b>risk seeking</b>.</li>
-   <li><b class="e">📊</b>Strong, replicated; sophisticated and naive people; young and old (Mayhorn et al., 2002).</li>
-   <li><b class="e">🔁</b>Tip: reword big decisions ("how would I feel <i>not</i> having this job?").</li>
-  </ul>
+  <div class="vsubs">
+   <div class="vsub"><b class="n">C.2.1</b><h5>Value relative to a reference point</h5>
+     <p>📈 <b>Prospect theory</b> (Kahneman &amp; Tversky, 1979), a <b>descriptive</b> model: value = <b>gain or loss</b> from now. <b>Gains and losses are on different scales</b>: gains grow <b>more slowly</b>; <b>loss aversion</b>. So for gains we <b>avoid risks</b>, for losses we <b>seek risks</b>.</p></div>
+   <div class="vsub"><b class="n">C.2.2</b><h5>The framing effect: wording</h5>
+     <p>🦠 Asian disease: “<b>200 people will be saved</b>” → <b>72%</b> choose sure A, <b>28%</b> the gamble. “<b>400 people will die</b>” → <b>22%</b> sure C, <b>78%</b> the gamble D. Only the <b>framing</b> changes: gains → <b>risk averse</b>, losses → <b>risk seeking</b>.</p></div>
+   <div class="vsub"><b class="n">C.2.3</b><h5>The framing effect: background</h5>
+     <p>🎟️ <b>Background context</b>: lost a €20 ticket → <b>46%</b> buy another; lost a €20 note → <b>88%</b> buy one (Matlin’s Demonstration 12.7). Mental accounts, or <b>psychological accounting</b>. Tip: reword big decisions (“how would I feel <i>not</i> having this job?”).</p></div>
+  </div>
  </div>
+ <div class="vdemo"><span class="lbl">REFRAME IT · C.2.2</span><h4>🔁 Same fact, two frames</h4>
+  <div class="cards2"><div style="background:#fbecea"><b>😟 Matlin’s alarming letter</b><br>“Opponents have introduced legislation in 17 state governments.”</div><div style="background:#eaf6ee"><b>😌 Same fact, calm frame</b><br>Opponents <b>failing</b> to do so in 33 states.</div></div>
+  <p class="mini">Framing is strong and replicated (Kahneman, 2011), in sophisticated and naive people, young and old (Mayhorn et al., 2002). It shapes medical decisions (McNeil et al., 1986), health behaviours (Rothman &amp; Salovey, 1997), whether to continue a romantic relationship (Boon &amp; Griffin, 1996) and political messages, though it persuades less from low-credibility sources (Druckman, 2001).</p>
+  <div class="poll"><span>A surgeon can say “90% survival” or “10% mortality”. Which wording makes patients more willing?</span><button class="vbtn" data-out="ssurgOut" data-rev="“90% survival”: a gain frame (lives kept), so the sure-sounding operation feels attractive. “10% mortality” puts patients on the loss side, where the risk of dying looms larger. Same facts, different reference point.">90% survival</button><button class="vbtn" data-out="ssurgOut" data-rev="Prospect theory predicts the opposite: “10% mortality” is a loss frame, and losses loom larger, so patients are less willing. “90% survival” is the gain frame that makes the operation feel attractive.">10% mortality</button></div>
+  <div class="vout" id="ssurgOut"></div></div>
  <div class="vana"><div class="ae">🥛</div><div><b>THINK OF IT LIKE…</b>Half-full vs half-empty. The glass is the same; "saved" puts you on the gains side (protect what you have), "die" puts you on the losses side (take a chance to avoid it).</div></div>
- <div class="vtrap"><div class="x"><b>✗ THE MISTAKE</b>"People choose differently because the programmes differ."</div><div class="ok"><b>✓ CORRECT</b>A = C and B = D in outcome and expected value. Only the frame changes, so it violates invariance.</div></div>
- <div class="vtrio"><div class="f"><b>💬 SAY IT TO A FRIEND</b>We judge outcomes as wins or losses from where we are now, and losses hurt more. So "saved" makes us play safe and "die" makes us gamble.</div><div class="h"><b>🔑 MEMORY HOOK</b>Gains: play it safe. Losses: roll the dice.</div><div class="t"><b>✎ EXAM TIP</b>Learn 72/28 and 22/78 and explain them with the curve's shape.</div></div>
+ <div class="vtrap"><div class="x"><b>✗ THE MISTAKE</b>"People choose differently because the programmes differ."</div><div class="ok"><b>✓ CORRECT</b>The programs are identical in outcome and expected value (A = C, B = D). Only the <b>frame</b> (saved vs die) changes the reference point, so the same outcome is coded as a gain or a loss. That is why it violates invariance.</div></div>
+ <div class="vtrio"><div class="f"><b>💬 SAY IT TO A FRIEND</b>We don’t judge outcomes by where we end up, but by whether they feel like a win or a loss compared with now, and losses hurt more. So “200 people will be saved” makes us play safe, but “400 people will die” makes us gamble, even though it’s exactly the same deal.</div><div class="h"><b>🔑 MEMORY HOOK</b>Gains: play it safe. Losses: roll the dice. Wording sets the reference point.</div><div class="t"><b>✎ EXAM TIP</b>Learn the four numbers 72/28 and 22/78, and be able to explain them with the shape of the value function (concave gains, convex and steeper losses).</div></div>
  <div class="vwatch"><a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=prospect+theory+value+function+loss+aversion">▶ Find a video: prospect theory</a><a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=Asian+disease+problem+framing+effect">▶ Find a video: Asian disease framing</a></div>
 </article>
 
@@ -561,18 +658,33 @@ details.idans summary{cursor:pointer;font-weight:700;color:var(--dgold)}.model2 
   <button class="vbtn" id="ssW">🏔️ Wisconsin ($50, more fun)</button><button class="vbtn" id="ssM">🏔️ Michigan ($100)</button><div class="vout" id="ssOut"></div></div>
  <div class="vgrid">
   <figure class="vfig"><svg viewBox="0 0 560 300" id="sstress"></svg><figcaption>Figure C.3a. Porcelli &amp; Delgado (2009) <span class="bg">real data</span>: stress exaggerates the framing pattern.</figcaption></figure>
-  <ul class="vpts">
-   <li><b class="e">👛</b><b>Psychological accounting</b>: lost ticket = "play account" already spent; lost cash = general account. Same $20 loss.</li>
-   <li><b class="e">🕳️</b><b>Sunk cost</b>: past investment drives more investment (ski trips; Sternberg's "lemon" car).</li>
-   <li><b class="e">⏳</b><b>Temporal value asymmetry</b> (Caruso et al., 2008): future break worth more than a past one ($113 vs $91).</li>
-   <li><b class="e">🧠</b>fMRI (Gonzalez et al., 2005): the preferred option in each frame was the <b>less effortful</b> one.</li>
-   <li><b class="e">🧊</b>Stress → more System 1; 🤝 a shoulder touch by a woman raised risky investing (Levav &amp; Argo, 2010).</li>
-  </ul>
+  <div class="vsubs">
+   <div class="vsub"><b class="n">C.3.1</b><h5>Psychological accounting</h5>
+     <p>👛 Lost money (a $10 bill)? Most still buy a ticket. Lost the ticket? <b>Less</b> willing: <b>psychological accounting</b> (Kahneman &amp; Tversky, 1981). The lost ticket hits the “play account”. “A little silly”: you are out $20 either way.</p></div>
+   <div class="vsub"><b class="n">C.3.2</b><h5>Sunk costs</h5>
+     <p>🕳️ <b>Sunk-cost effect</b>: most chose the $100 Michigan trip over the more enjoyable $50 Wisconsin one (Arkes &amp; Blumer, 1985), “throwing good money after bad” (Garland, 1990). Sternberg’s <b>sunk-cost fallacy</b>: repairing a “lemon” car.</p></div>
+   <div class="vsub"><b class="n">C.3.3</b><h5>Time: the temporal value asymmetry</h5>
+     <p>⏳ Future &gt; past (Caruso et al., 2008): asked <b>before</b> their winter break, people valued it more and would pay more to extend it (<b>$113 vs $91</b>) than people asked after it. Found in all five studies.</p></div>
+   <div class="vsub"><b class="n">C.3.4</b><h5>Framing in the brain: minimising effort</h5>
+     <p>🧠 fMRI (Gonzalez et al., 2005): mainly <b>frontal and parietal</b> activity. The brain was <b>less active</b> for the <b>certain</b> option in the <b>gain</b> frame and for the risky one in the loss frame: we <b>minimise cognitive effort</b>.</p></div>
+   <div class="vsub"><b class="n">C.3.5</b><h5>Emotion: stress and touch</h5>
+     <p>🧊 A hand in <b>ice-cold water</b> (stress) <b>accentuated</b> framing (more <b>System 1</b>): risky choices .42 → .33 for gains, .61 → .66 for losses (Porcelli &amp; Delgado, 2009). A woman’s touch on the shoulder raised risky investing to $3.44 (Levav &amp; Argo, 2010).</p></div>
+  </div>
  </div>
+ <div class="vdemo"><span class="lbl">DIAGRAM · GONZALEZ ET AL. (2005)</span><h4>🧠 The preferred option is the easy one</h4>
+  <figure class="vfig" style="margin:6px 0"><svg viewBox="0 0 560 220" role="img" aria-label="Brain activity by frame and option">
+   <text x="140" y="22" text-anchor="middle" class="t-b">GAIN frame (“saved”)</text><text x="420" y="22" text-anchor="middle" class="t-b">LOSS frame (“die”)</text>
+   <line x1="20" y1="170" x2="260" y2="170" stroke="#34466b"/><line x1="300" y1="170" x2="540" y2="170" stroke="#34466b"/>
+   <rect x="50" y="125" width="70" height="45" rx="6" fill="#2f8a57"/><rect x="160" y="60" width="70" height="110" rx="6" fill="#e5e1d8"/>
+   <rect x="330" y="60" width="70" height="110" rx="6" fill="#e5e1d8"/><rect x="440" y="125" width="70" height="45" rx="6" fill="#2f8a57"/>
+   <text x="85" y="188" text-anchor="middle" class="t-t">certain</text><text x="195" y="188" text-anchor="middle" class="t-t">risky</text><text x="365" y="188" text-anchor="middle" class="t-t">certain</text><text x="475" y="188" text-anchor="middle" class="t-t">risky</text>
+   <text x="85" y="117" text-anchor="middle" class="t-ok">✓ chosen</text><text x="475" y="117" text-anchor="middle" class="t-ok">✓ chosen</text>
+   <text x="280" y="212" text-anchor="middle" class="t-s">bar height = brain activity (schematic) · green = less active = preferred option</text>
+  </svg><figcaption><span class="bg">illustrative heights</span> Frontal and parietal regions (immediate memory, some imagery). In each frame people chose the option that cost the brain less effort.</figcaption></figure></div>
  <figure class="vfig"><svg viewBox="0 0 900 260" id="stouch"></svg><figcaption>Figure C.3b. Levav &amp; Argo (2010) <span class="bg">real data</span>: dollars (of $5) invested in the risky fund.</figcaption></figure>
  <div class="vana"><div class="ae">👛</div><div><b>THINK OF IT LIKE…</b>Labelled envelopes for money. Losing the "concert envelope" money feels like the concert just got pricier; losing cash from your wallet doesn't, even though you're €20 down either way.</div></div>
- <div class="vtrap"><div class="x"><b>✗ THE MISTAKE</b>Mixing up which ticket problem is "Problem 1".</div><div class="ok"><b>✓ CORRECT</b>Matlin's Problem 1 = lost <b>ticket</b>; Robinson-Riegler's scenario 1 = lost <b>money</b>. Name the scenario, not the number.</div></div>
- <div class="vtrio"><div class="f"><b>💬 SAY IT TO A FRIEND</b>We keep money in mental pockets, stick with things because we've paid, value future fun more than past fun, and gamble more under stress or after a friendly touch.</div><div class="h"><b>🔑 MEMORY HOOK</b>Pockets, sunk costs, future &gt; past, stress and touch tilt risk.</div><div class="t"><b>✎ EXAM TIP</b>For sunk cost, say what a rational chooser does: ignore money already gone.</div></div>
+ <div class="vtrap"><div class="x"><b>✗ THE MISTAKE</b>Mixing up which ticket problem is "Problem 1".</div><div class="ok"><b>✓ CORRECT</b>Matlin’s Problem 1 = lost <b>ticket</b>; Robinson-Riegler’s scenario 1 = lost <b>money</b>. In both books people are less willing to buy after losing the <b>ticket</b> (Matlin: 46% vs 88%). Name the scenario, not the number.</div></div>
+ <div class="vtrio"><div class="f"><b>💬 SAY IT TO A FRIEND</b>We keep money in mental pockets: losing a ticket feels like the concert got pricier, losing cash doesn’t. We stick with things because we’ve already paid for them, value future fun more than past fun, pick whichever option is easier for the brain, and gamble more under stress or after a friendly touch on the shoulder.</div><div class="h"><b>🔑 MEMORY HOOK</b>Pockets, sunk costs, future &gt; past, easy &gt; effortful, stress and touch tilt risk.</div><div class="t"><b>✎ EXAM TIP</b>For sunk-cost questions, always say what a rational chooser would do: ignore money already spent, because it is gone whatever you choose.</div></div>
  <div class="vwatch"><a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=sunk+cost+fallacy+explained">▶ Find a video: sunk cost fallacy</a><a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=mental+accounting+Thaler+theatre+ticket">▶ Find a video: mental accounting</a></div>
 </article>
 
@@ -580,7 +692,16 @@ details.idans summary{cursor:pointer;font-weight:700;color:var(--dgold)}.model2 
  <div class="vlec-h"><div class="vnum"><i>😎</i>C.4</div><h2>Overconfidence, hindsight, and biases or adaptive tools?</h2></div>
  <div class="vq">❓ <b>This lecture answers:</b> How do we misjudge our own judgements, and are heuristics flaws or tools?</div>
  <figure class="vfig"><svg viewBox="0 0 900 260" id="sover"></svg><figcaption>Figure C.4a. <span class="bg">real data</span> Overconfidence (Fischhoff et al., 1977; Block &amp; Harper, 1991; Teigen &amp; Jørgensen, 2005).</figcaption></figure>
- <div class="vdemo"><span class="lbl">INTERACTIVE · PLANNING FALLACY</span><h4>📅 How long will your next essay take?</h4><p class="mini">Estimate in hours. Then apply two of Matlin's remedies (split the task; think of someone else's obstacles) and see your new estimate.</p>
+ <div class="vdemo"><span class="lbl">MATLIN’S FIVE REASONS · C.4.1</span><h4>🤔 Why are we overconfident?</h4>
+  <div class="cards3">
+   <div><b>1 · Shaky foundations</b>We don’t realise our knowledge rests on shaky assumptions and unreliable sources.</div>
+   <div><b>2 · Easy confirmations</b>Confirming examples are readily available; we don’t search for counterexamples.</div>
+   <div><b>3 · No rivals in mind</b>We can’t recall competing hypotheses.</div>
+   <div><b>4 · Rivals not taken seriously</b>Even when we recall alternatives, we dismiss them.</div>
+   <div><b>5 · Never taught</b>We don’t pause to switch from Type 1 to Type 2 thinking.</div>
+  </div>
+  <p class="mini">It is everywhere: researchers and their theories (Trout, 2002); phone contracts that profit from overestimated usage (Grubb, 2009); 77% of students overconfident, 23% not (Stanovich, 1999); Chinese participants most confident, Japanese least (Yates, 2010). <b>Political decisions</b>: each side in a conflict expects to win (Johnson, 2004); Iraq WMD evidence turned out to be a forgery (Tavris &amp; Aronson, 2007). <b>Crystal-ball technique</b>: imagine a perfect crystal ball shows your favoured explanation is wrong, then generate alternatives (Cannon-Bowers &amp; Salas, 1998).</p></div>
+ <div class="vdemo"><span class="lbl">INTERACTIVE · PLANNING FALLACY</span><h4>📅 How long will your next essay take?</h4><p class="mini">Estimate in hours. Then apply two of Matlin’s remedies (split the task; think of someone else’s obstacles) and see your new estimate. <span class="bg">illustrative</span></p><p class="mini">Causes: we imagine an optimistic scenario, recall finishing similar tasks quickly, and expect more free time in the future (Zauberman &amp; Lynch, 2005). Remedies: divide the project (Forsyth &amp; Burt, 2008), envision and rehearse each step (Taylor et al., 1998), imagine how long <b>someone else</b> took, obstacles included (Buehler et al., 2012).</p>
   <div class="poll"><span>First guess (hours)</span><input type="number" id="spf0" value="10"></div>
   <div id="spfParts"></div><button class="vbtn p" id="spfGo">Add it up</button><div class="vout" id="spfOut"></div></div>
  <div class="vgrid">
@@ -591,49 +712,66 @@ details.idans summary{cursor:pointer;font-weight:700;color:var(--dgold)}.model2 
    <rect x="20" y="138" width="230" height="140" rx="14" fill="#fbecea"/><text x="135" y="164" text-anchor="middle" class="t-b">tragic ending</text><text x="135" y="192" text-anchor="middle" class="t-t">"I could have predicted it"</text><text x="135" y="220" text-anchor="middle" class="t-t">false memories fitting</text><text x="135" y="238" text-anchor="middle" class="t-t">the ending</text>
    <rect x="310" y="138" width="230" height="140" rx="14" fill="#eaf6ee"/><text x="425" y="164" text-anchor="middle" class="t-b">proposal ending</text><text x="425" y="192" text-anchor="middle" class="t-t">"I could have predicted it"</text><text x="425" y="220" text-anchor="middle" class="t-t">false memories fitting</text><text x="425" y="238" text-anchor="middle" class="t-t">the ending</text>
   </svg><figcaption>Figure C.4b. Hindsight bias reshapes judgement and memory.</figcaption></figure>
-  <ul class="vpts">
-   <li><b class="e">😎</b><b>Overconfidence</b>: politics (Iraq WMD), the <b>planning fallacy</b>, <b>my-side bias</b>. Remedy: the <b>crystal-ball technique</b>.</li>
-   <li><b class="e">🔙</b><b>Hindsight bias</b>: "knew it all along"; likely anchoring on the known outcome; hinders learning (Biais &amp; Weber, 2009).</li>
-   <li><b class="e">🧰</b><b>Gigerenzer</b>: heuristics = adaptive toolbox, fast and frugal, <b>ecological rationality</b>.</li>
-   <li><b class="e">🫀</b><b>Default heuristic</b>: 28% U.S. vs 99.9% French organ donors.</li>
-   <li><b class="e">🤝</b>Both camps agree: heuristics usually serve us well; know their limits.</li>
-  </ul>
+  <div class="vsubs">
+   <div class="vsub"><b class="n">C.4.1</b><h5>Overconfidence</h5>
+     <p>😎 <b>Overconfidence</b>: <b>100%</b> sure, <b>80%</b> right (Fischhoff et al., 1977). It shows in <b>political decisions</b> (Iraq) and <b>the planning fallacy</b> (Buehler et al., 2002). Remedy: the <b>crystal-ball technique</b>. Dangerous form: <b>my-side bias</b> (Stanovich, 2009).</p></div>
+   <div class="vsub"><b class="n">C.4.2</b><h5>The hindsight bias</h5>
+     <p>🔙 <b>Hindsight bias</b>: “knew it all along” (Hastie &amp; Dawes, 2010); we rebuild the past (Schacter, 2001). Carli (1999): each ending felt predictable. <b>Explanation</b>: <b>anchoring and adjustment</b> on the known outcome (Pohl et al., 2002). It hinders learning (Biais &amp; Weber, 2009).</p></div>
+   <div class="vsub"><b class="n">C.4.3</b><h5>Biases or adaptive tools?</h5>
+     <p>🧰 <b>Kahneman–Tversky (KT)</b>: why do we fall short? <b>Gigerenzer</b>: an <b>adaptive toolbox</b> for <b>bounded rationality</b>, <b>fast and frugal</b>, <b>ecological rationality</b>: recognition, <b>take-the-best</b>, default (28% vs 99.9% donors). Both agree heuristics usually serve us well.</p></div>
+  </div>
  </div>
- <div class="vdemo"><span class="lbl">INTERACTIVE · THE DEFAULT HEURISTIC</span><h4>🫀 Same people, different default</h4><p class="mini">Imagine 400 citizens who all "do nothing" unless they care strongly (say 1 in 20 acts). Switch the system and see who ends up as a donor.</p>
+ <div class="vdemo"><span class="lbl">DIAGRAM · C.4.3</span><h4>🔭 One set of heuristics, two lenses</h4>
+  <figure class="vfig" style="margin:6px 0"><svg viewBox="0 0 560 300" role="img" aria-label="Kahneman-Tversky versus Gigerenzer">
+   <rect x="10" y="10" width="262" height="190" rx="14" fill="#fbecea"/><text x="141" y="36" text-anchor="middle" class="t-b">Kahneman–Tversky (KT)</text>
+   <text x="141" y="62" text-anchor="middle" class="t-t">Why does judgement fall</text><text x="141" y="80" text-anchor="middle" class="t-t">short of optimisation?</text>
+   <text x="141" y="108" text-anchor="middle" class="t-s">yardstick: normative rules</text><text x="141" y="136" text-anchor="middle" class="t-r">focus: errors and limits</text>
+   <text x="141" y="164" text-anchor="middle" class="t-s">Linda · Asian disease</text><text x="141" y="184" text-anchor="middle" class="t-s">“the glass is half empty”</text>
+   <rect x="288" y="10" width="262" height="190" rx="14" fill="#eaf6ee"/><text x="419" y="36" text-anchor="middle" class="t-b">Gigerenzer</text>
+   <text x="419" y="62" text-anchor="middle" class="t-t">Adaptive toolbox: bounded</text><text x="419" y="80" text-anchor="middle" class="t-t">rationality × environment</text>
+   <text x="419" y="108" text-anchor="middle" class="t-s">yardstick: ecological rationality</text><text x="419" y="136" text-anchor="middle" class="t-ok">fast and frugal tools</text>
+   <text x="419" y="164" text-anchor="middle" class="t-s">Recognition · Take-the-best</text><text x="419" y="184" text-anchor="middle" class="t-s">Default · Natural frequencies</text>
+   <rect x="10" y="212" width="540" height="78" rx="14" fill="#f6eedd"/>
+   <text x="280" y="236" text-anchor="middle" class="t-t">Competence ≠ everyday performance: even experts err (Stanovich, 2010)</text>
+   <text x="280" y="256" text-anchor="middle" class="t-t">Realistic forecasts (Harris et al., 2009); lab tasks fight world knowledge</text>
+   <text x="280" y="278" text-anchor="middle" class="t-b">Both agree: heuristics generally serve us well; know their limits</text>
+  </svg><figcaption>Take-the-best: choose on the single most important criterion (Gigerenzer &amp; Goldstein, 1996). Matlin’s conclusion: Kahneman &amp; Tversky (2000).</figcaption></figure></div>
+ <div class="vdemo"><span class="lbl">INTERACTIVE · THE DEFAULT HEURISTIC</span><h4>🫀 Same people, different default</h4><p class="mini"><span class="bg">illustrative simulation</span> Imagine 400 citizens who all "do nothing" unless they care strongly (say 1 in 20 acts). Switch the system and see who ends up as a donor.</p>
   <button class="vbtn" id="sdIn">🇺🇸 Opt-in (sign up to donate)</button><button class="vbtn" id="sdOutB">🇫🇷 Opt-out (donor unless you object)</button><div class="icons" id="sdIcons" style="grid-template-columns:repeat(40,1fr)"></div><div class="vout" id="sdOut"></div></div>
- <div class="vdemo"><span class="lbl">QUIZ · RECOGNITION HEURISTIC</span><h4>🏙️ Which city is larger?</h4><div id="srec"></div><div class="vout" id="srecOut"></div></div>
+ <div class="vdemo"><span class="lbl">QUIZ · RECOGNITION HEURISTIC</span><h4>🏙️ Which city is larger?</h4><p class="mini">Milan vs Modena is the readings’ example; the other pairs are <span class="bg">illustrative</span>.</p><div id="srec"></div><div class="vout" id="srecOut"></div></div>
  <div class="vana"><div class="ae">🔭</div><div><b>THINK OF IT LIKE…</b>Kahneman &amp; Tversky inspect the toolbox for broken tools; Gigerenzer watches the tools working on real jobs. Same tools, different question.</div></div>
- <div class="vtrap"><div class="x"><b>✗ THE MISTAKE</b>"Hindsight bias and overconfidence are the same thing."</div><div class="ok"><b>✓ CORRECT</b>Overconfidence = too sure now; hindsight = after the outcome, believing you'd have predicted it.</div></div>
- <div class="vtrio"><div class="f"><b>💬 SAY IT TO A FRIEND</b>Before, we're too sure ("10 hours for the paper"); after, we think we knew it all along. But simple rules like "go with the one you recognise" often work well.</div><div class="h"><b>🔑 MEMORY HOOK</b>Too sure before, "knew it" after; shortcuts are tools, not just traps.</div><div class="t"><b>✎ EXAM TIP</b>End any "biases or tools?" answer with the shared conclusion.</div></div>
+ <div class="vtrap"><div class="x"><b>✗ THE MISTAKE</b>"Hindsight bias and overconfidence are the same thing."</div><div class="ok"><b>✓ CORRECT</b>Overconfidence is about current judgements and predictions (too sure now). Hindsight bias is about the past (after the outcome, believing you would have predicted it). Matlin links them: hindsight is overconfidence about our past predictive ability.</div></div>
+ <div class="vtrio"><div class="f"><b>💬 SAY IT TO A FRIEND</b>Before deciding, we’re too sure of ourselves, like estimating 10 hours for a paper that takes 30. After the outcome, we think we knew it all along. But mental shortcuts aren’t simply bugs: in the real world, simple rules like “go with the one you recognise” or “stick with the default” often work really well.</div><div class="h"><b>🔑 MEMORY HOOK</b>Too sure before, “knew it” after; shortcuts are tools, not just traps.</div><div class="t"><b>✎ EXAM TIP</b>In any “biases or adaptive?” question, end with the consensus: both views agree heuristics generally serve us well, and the disagreement is about emphasis and the yardstick (normative rules vs fit with the environment).</div></div>
+ <details class="vchk"><summary>✅ Quick check: How can anchoring and adjustment explain the hindsight bias?</summary><p>Knowing the outcome happened (100% certain) is the anchor. When people estimate what they would have predicted beforehand, they adjust down from it too little. Memory reconstruction, as in Carli’s (1999) false memories, adds to it.</p></details>
  <div class="vwatch"><a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=planning+fallacy+Kahneman">▶ Find a video: planning fallacy</a><a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=Gigerenzer+fast+and+frugal+heuristics+ecological+rationality">▶ Find a video: Gigerenzer's heuristics</a></div>
 </article>
 
 <section class="vsec" id="sz-synth">
 <h2>🧵 Synthesis: the rule, the shortcut, the rescue</h2>
 <div class="tblw" style="overflow-x:auto"><table class="tb"><tr><th></th><th>Block A–B (judgement)</th><th>Block C (decision making)</th></tr>
- <tr><td>📐 The rule</td><td>Bayes; conjunction rule</td><td>Expected utility; invariance</td></tr>
- <tr><td>🧰 What we do</td><td>Representativeness, availability, anchoring</td><td>Prospect theory: gains vs losses</td></tr>
- <tr><td>⚠️ Signature error</td><td>Base-rate neglect; conjunction fallacy</td><td>Framing; preference reversals; sunk costs</td></tr>
+ <tr><td>📐 Normative standard</td><td>Bayes; conjunction rule</td><td>Expected utility; invariance</td></tr>
+ <tr><td>🧰 What we do</td><td>Representativeness, availability, anchoring</td><td>Prospect theory: gains vs losses, loss aversion</td></tr>
+ <tr><td>⚠️ Signature error</td><td>Base-rate neglect; conjunction fallacy</td><td>Framing effects; preference reversals; sunk costs</td></tr>
  <tr><td>🖼️ Presentation matters</td><td>Frequencies and causal stories help</td><td>Wording and background change choices</td></tr>
- <tr><td>🪞 Judging ourselves</td><td>Too-narrow confidence intervals</td><td>Overconfidence; planning fallacy; hindsight</td></tr>
- <tr><td>🌱 The positive view</td><td>Recognition heuristic; natural frequencies</td><td>Take-the-best; default heuristic</td></tr></table></div>
+ <tr><td>🪞 Judging ourselves</td><td>Too-narrow confidence intervals</td><td>Overconfidence; planning fallacy; hindsight bias</td></tr>
+ <tr><td>🌱 The positive view</td><td>Recognition heuristic; natural frequencies</td><td>Take-the-best; default heuristic; ecological rationality</td></tr></table></div>
 <div class="vcall">The same mind that neglects base rates and flips with wording does much better with counts, causal stories, reworded questions, alternatives to consider and time to switch from Type 1 to Type 2 thinking.</div>
 </section>
 
 <section class="vsec" id="sz-one">
 <h2>📄 Theme 6 on one page</h2>
 <div class="vone">
- <div><span class="e">🚕</span><b class="k">A1</b><h4>Judging &amp; Bayes</h4>Combine how common with how strong the clue is: taxi 41%, not 80%.</div>
- <div><span class="e">👔</span><b class="k">A2</b><h4>Representativeness</h4>Judging by resemblance → base-rate neglect, small samples, man-who, gambler's fallacy.</div>
- <div><span class="e">🏦</span><b class="k">A3</b><h4>Conjunction fallacy</h4>Detail feels likelier but can't be (Linda); 49% of doctors (double). Frequencies help.</div>
- <div><span class="e">💭</span><b class="k">A4</b><h4>Availability</h4>Easy to recall → seems common; recency, familiarity, media, dread; one-cell thinking.</div>
- <div><span class="e">⚓</span><b class="k">A5</b><h4>Anchoring &amp; rescue</h4>Adjust too little (2,250 vs 512); base rates used with causes, motives, counts.</div>
- <div><span class="e">🪙</span><b class="k">C1</b><h4>Expected utility</h4>Value × probability + invariance; preference reversals break it; we satisfice.</div>
- <div><span class="e">📈</span><b class="k">C2</b><h4>Prospect theory</h4>Gains vs losses from now; losses hurt more; 72% safe vs 78% gamble; ticket 46% vs 88%.</div>
- <div><span class="e">🎟️</span><b class="k">C3</b><h4>Accounts &amp; feelings</h4>Mental pockets, sunk costs, future &gt; past, least effort, stress and touch.</div>
- <div><span class="e">😎</span><b class="k">C4</b><h4>Confidence &amp; tools</h4>100% sure, 80% right; hindsight; Gigerenzer's fast-and-frugal toolbox.</div>
+ <div><span class="e">🚕</span><b class="k">A1</b><h4>Judging &amp; the ideal</h4>Judgement = how likely; decision = what to choose. Bayes: combine how common something is with how strong the clue is (taxi-cab: 41%, not 80%).</div>
+ <div><span class="e">👔</span><b class="k">A2</b><h4>Representativeness</h4>We ignore base rates and judge by resemblance: Jack “is” an engineer, random-looking births seem likelier, one anecdote beats statistics, gamblers feel “due”.</div>
+ <div><span class="e">🏦</span><b class="k">A3</b><h4>Conjunction fallacy</h4>Extra detail feels likelier but can’t be (Linda); even 49% of doctors (double fallacy). Frequencies reduce it.</div>
+ <div><span class="e">💭</span><b class="k">A4</b><h4>Availability</h4>Easy to recall → seems common; skewed by recency, familiarity, media, dread; recognition can help; one-cell thinking → illusory correlation.</div>
+ <div><span class="e">⚓</span><b class="k">A5</b><h4>Anchoring; rescue; critique</h4>Start somewhere, adjust too little (2,250 vs 512; narrow intervals). Base rates used with causes, motives, frequencies. The approach is vague and lab-bound.</div>
+ <div><span class="e">🪙</span><b class="k">C1</b><h4>Expected utility</h4>Rational ideal: value × probability, and invariance. Preference reversals break it; real people satisfice.</div>
+ <div><span class="e">📈</span><b class="k">C2</b><h4>Prospect theory &amp; framing</h4>Gains vs losses from a reference point; losses hurt more; safe for gains, risky for losses (72% vs 78%); background framing (46% vs 88%).</div>
+ <div><span class="e">🎟️</span><b class="k">C3</b><h4>Accounts &amp; feelings</h4>Mental pockets, sunk costs, future &gt; past, the least-effort option; stress and touch increase risk tendencies.</div>
+ <div><span class="e">😎</span><b class="k">C4</b><h4>Confidence &amp; the debate</h4>Too sure before (planning fallacy), “knew it” after (Carli). Gigerenzer: heuristics are fast, frugal tools that fit real environments; both camps agree they mostly work.</div>
 </div>
-<div class="vfriend">💬 <b>The whole theme to a friend:</b> "When we guess how likely things are, we use shortcuts: does it look typical, can I think of examples, where did I start? They usually work, but they make us forget how common things are and stay too close to first guesses. When we choose, we ask whether outcomes feel like wins or losses, so '200 saved' and '400 die' get different answers. We're too sure beforehand and 'knew it all along' afterwards. Give people plain counts or a familiar setting and their shortcuts look pretty smart."</div>
+<div class="vfriend">💬 <b>The whole theme to a friend:</b> “When we guess how likely things are, we use shortcuts: does it look typical, can I think of examples, where did I start? They usually work, but they make us forget how common things are, believe detailed stories, and stay too close to first guesses. When we choose, we don’t weigh outcomes coolly: we ask whether they feel like wins or losses, so ‘200 saved’ and ‘400 die’ get different answers. We’re also too sure of ourselves, and afterwards we think we knew it all along. But give people plain counts, a causal story or a familiar setting, and their shortcuts look pretty smart.”</div>
 <p class="mini" style="margin-top:18px">Sources: Eysenck &amp; Keane Ch. 13 · Matlin &amp; Farmer Ch. 12 · Sternberg, Sternberg &amp; Mio Ch. 12 · Matlin Ch. 12 · Robinson-Riegler &amp; Robinson-Riegler Ch. 11. Video buttons open a YouTube search so you can pick a current video.</p>
 </section>
 </div>
@@ -676,12 +814,12 @@ bars(G('sanchor'),{w:900,h:260,title:'Anchors pull estimates',max:45000,groups:[
 /* A.5 CI calibration */
 var CI=[['Year Martin Van Buren began as U.S. president',1837],['Year New Zealand gave women the vote',1893],['Life expectancy in Canada in 2009 (years)',81.3],['Population of France, 2010 (millions)',64.1],['People who died in Japan\'s 2011 earthquake and tsunami (official count)',15839]];
 G('sci').innerHTML=CI.map(function(q,i){return '<div class="poll"><span>'+q[0]+'</span>low <input type="number" id="scl'+i+'"> high <input type="number" id="sch'+i+'"></div>'}).join('');
-G('sciGo').onclick=function(){var hits=0,done=0,out=[];CI.forEach(function(q,i){var l=+G('scl'+i).value,h=+G('sch'+i).value;if(G('scl'+i).value===''||G('sch'+i).value==='')return;done++;var ok=q[1]>=Math.min(l,h)&&q[1]<=Math.max(l,h);if(ok)hits++;out.push((ok?'✅ ':'❌ ')+q[0]+': '+q[1].toLocaleString())});G('sciOut').innerHTML=(done?'<b>'+hits+' / '+done+'</b> answers inside your ranges.<br>':'Fill in at least one range. ')+out.join('<br>')+'<br><span class="mini">Answers from Matlin &amp; Farmer\'s Demonstration 12.6. People\'s 98% intervals contain the answer only ~60% of the time: we anchor on a best guess and adjust too little.</span>'};
+G('sciGo').onclick=function(){var hits=0,done=0,out=[];CI.forEach(function(q,i){var l=+G('scl'+i).value,h=+G('sch'+i).value;if(G('scl'+i).value===''||G('sch'+i).value==='')return;done++;var ok=q[1]>=Math.min(l,h)&&q[1]<=Math.max(l,h);if(ok)hits++;out.push((ok?'✅ ':'❌ ')+q[0]+': '+q[1].toLocaleString())});G('sciOut').innerHTML=(done?'<b>'+hits+' / '+done+'</b> answers inside your ranges.<br>':'Fill in at least one range. ')+out.join('<br>')+'<br><span class="mini">Practice items only (not from your Word notes). People\'s 98% intervals contain the answer only ~60% of the time: we anchor on a best guess and adjust too little.</span>'};
 /* A.5 KT chart */
 bars(G('skt'),{w:560,h:300,title:'Rescuing base rates (% correct)',max:55,groups:[{label:'Taxi: standard',vals:[[8,'#c0392b','8%']]},{label:'Taxi: faded paint',vals:[[46,'#2f8a57','46%']]},{label:'Probabilities',sub:'Gigerenzer & H.',vals:[[16,'#c0392b','16%']]},{label:'Frequencies',sub:'Gigerenzer & H.',vals:[[46,'#2f8a57','46%']]}]});
 /* C.1 preference reversal */
 var spChoice=null;document.querySelectorAll('#sz-C1 [data-g]').forEach(function(b){b.onclick=function(){spChoice=b.dataset.g;document.querySelectorAll('#sz-C1 [data-g]').forEach(function(x){x.classList.remove('p')});b.classList.add('p')}});
-G('sprGo').onclick=function(){if(!spChoice){G('sprOut').textContent='Choose a gamble first.';return}var pP=+G('spP').value,pD=+G('sp$').value;var rev=(spChoice==='P'&&pD>pP)||(spChoice==='$'&&pP>pD);var evP=(.99*4-.01*1).toFixed(2),evD=(.33*16-.67*2).toFixed(2);G('sprOut').innerHTML=(rev?'🔄 <b>Preference reversal!</b> You chose Gamble '+spChoice+' but priced the other one higher, exactly what Lichtenstein &amp; Slovic found: choices follow the <b>probability</b>, prices follow the <b>amount</b>. That violates invariance.':'✅ Consistent: the gamble you chose also got the higher price. Many people are not.')+'<br><span class="mini">Expected values: P = $'+evP+', $ = $'+evD+'.</span>'};
+G('sprGo').onclick=function(){if(!spChoice){G('sprOut').textContent='Choose a gamble first.';return}var pP=+G('spP').value,pD=+G('sp$').value;var rev=(spChoice==='P'&&pD>pP)||(spChoice==='$'&&pP>pD);var evP=(.8*4-.2*.5).toFixed(2),evD=(.1*40-.9*1).toFixed(2);G('sprOut').innerHTML=(rev?'🔄 <b>Preference reversal!</b> You chose Gamble '+spChoice+' but priced the other one higher, exactly what Lichtenstein &amp; Slovic found: choices follow the <b>probability</b>, prices follow the <b>amount</b>. That violates invariance.':'✅ Consistent: the gamble you chose also got the higher price. Many people are not.')+'<br><span class="mini">Expected values: P = $'+evP+', $ = $'+evD+'.</span>'};
 /* C.1 EBA */
 var COL=[['Stanford',34000,'West Coast','🌲'],['UCLA',14000,'West Coast','🌴'],['NYU',30000,'East Coast','🗽'],['U. Washington',12000,'West Coast','☔'],['U. Michigan',16000,'Midwest','🍂'],['UC Davis',13000,'West Coast','🚲']],ebaStep=0;
 function eba(){var list=COL.filter(function(c){return ebaStep<1||c[1]<20000}).filter(function(c){return ebaStep<2||c[2]==='West Coast'}).filter(function(c){return ebaStep<3||c[0]==='UC Davis'||c[0]==='UCLA'});var steps=['All options','Aspect 1: tuition under $20,000','Aspect 2: on the West Coast','Then a careful comparison of the few left (Payne, 1976)'];G('seba').innerHTML='<p><b>'+steps[ebaStep]+'</b></p><div>'+COL.map(function(c){var keep=list.indexOf(c)>=0;return '<span class="vbtn" style="display:inline-block;'+(keep?'':'opacity:.3;text-decoration:line-through')+'">'+c[3]+' '+c[0]+' · $'+c[1].toLocaleString()+'</span>'}).join('')+'</div><button class="vbtn p" id="sebaNext">'+(ebaStep<3?'Next aspect ▶':'↻ Restart')+'</button>';G('sebaNext').onclick=function(){ebaStep=(ebaStep+1)%4;eba()};G('sebaOut').innerHTML=ebaStep===0?'Sternberg\'s example: eliminate by cost, then by location.':'Remaining: '+list.map(function(c){return c[0]}).join(', ')+'. <span class="mini">(Tuition figures are invented for the demo.)</span>'}
@@ -710,6 +848,8 @@ G('sdIn').onclick=function(){dflt(false)};G('sdOutB').onclick=function(){dflt(tr
 var RC=[['Milan','Modena','Milan'],['Munich','Mönchengladbach','Munich'],['Rotterdam','Zoetermeer','Rotterdam']],rq=0,rs=0;
 function rec(){if(rq>=RC.length){G('srec').innerHTML='<button class="vbtn" id="srecA">↻ Again</button>';G('srecA').onclick=function(){rq=0;rs=0;rec()};G('srecOut').innerHTML='You got <b>'+rs+' / '+RC.length+'</b>. If you recognise only one city, picking it is usually right: the <b>recognition heuristic</b> (Goldstein &amp; Gigerenzer, 2002), a special case of availability that works.';return}var q=RC[rq];G('srec').innerHTML='';[q[0],q[1]].sort(function(){return Math.random()-.5}).forEach(function(c){var b=document.createElement('button');b.className='vbtn';b.textContent=c;b.onclick=function(){if(c===q[2])rs++;rq++;rec()};G('srec').appendChild(b)});G('srecOut').textContent='Question '+(rq+1)+' / '+RC.length}
 rec();
+/* tap-to-reveal buttons added for the Word alignment */
+document.querySelectorAll('#p-vz [data-rev]').forEach(function(b){b.addEventListener('click',function(){var o=G(b.getAttribute('data-out'));if(!o)return;o.innerHTML=b.getAttribute('data-rev');var box=b.closest('.poll')||b.parentNode;box.querySelectorAll('[data-rev]').forEach(function(x){x.classList.remove('sel')});b.classList.add('sel')})});
 })();
 </script>
 <style>
